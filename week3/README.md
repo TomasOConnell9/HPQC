@@ -1,15 +1,15 @@
 # Week 3 - Introduction to MPI
 
-##Part 1: MPI Hello World
+## Part 1: MPI Hello World
 
 I created my own version of "hello_mpi.c" called "my_version_hello_mpi.c". This implemented a basic MPI hello world program and introduced me to the basics of MPI programming.
 This file was compiled in the root directory using "mpicc" and was saved to the bin directory, as my_version_hello_mpi"
 I then exectured the file with "mpirun -np 4 bin/my_version_hello_mpi" which displayed the 4 different ranks.
 The last step in this part was to use the time command to evaluate the run times for different number of processes. Each different value for num of proccess verified that parallel processing is going on since user + sys > real.
 
-##Part 2: MPI exercise breakdown
+## Part 2: MPI exercise breakdown
 
-#Documenting the code:
+Documenting the code:
 
 main() - This function initalises the error handeling variables that are required for a MPI script. It also initialises and finalises the MPI function, again without this the script wouldn't work. It also runs multiple checks to extract and validate the numerical inputs of the system.
 
@@ -23,19 +23,19 @@ check_uni_size() - This function makes sure that the amount of process's is at l
 
 check_task() - The check_task() function checks if the process is the root or a client. If we are the root case we perform the root_task(), and if we are a client we perform client_task().
 
-#Mathermatical operation:
+# Mathermatical operation:
 
 N(N+1)/2
 
-##Part 3: MPI Vector Addition
+## Part 3: MPI Vector Addition
 
-#Modifying the serial code
+# Modifying the serial code
 
 The final task required first the given script "vector_serial.c" to be modified such that the script would run with non-zero values.
 I altered the script so that the vector created was a vector increasing from 1 to n where n was the user selected size of the vector.
 For example, after compiling the code, running "./bin/my_serial_vector 5" returns the sum of all didgets from 1 to 5.
 
-#Creating the MPI version
+# Creating the MPI version
 
 Lastly, based on the logic of the serial_vector.c and the given pseudocode in the lecture notes a parallel version of the code was designed and tested.
 The parallel code was designed using the same implementation of MPI as was in the proof.c program. The bulk of the changes come in the client_task() function.
@@ -47,7 +47,7 @@ I have it set so the root does no summing of vector chunks but instead only reci
 
 The last change made was to both the serial and MPI version. They were updated to use long long int for the sums of the vectors as when the input got very large it couldn't handle it. 
 
-#Benchmarking
+# Benchmarking
 
 Using "time" on both the serial and the MPI versions of the program we can test to find where the parallel version completes faster in real time than the serial one.
 Without updating the datatype to long long int, the parallel version failed to compelte faster than the serial one without encountering overflow errors.
