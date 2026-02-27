@@ -1,6 +1,6 @@
 # Week 4 - MPI Communications
 
-##Part 1: Demonstrating communications
+## Part 1: Demonstrating communications
 
 The first step in part 1 required testing of the comm_test_mpi.c program. I ran it for a varying number of processors to observe its behaviour.
 After compiling the program I executed:
@@ -57,7 +57,7 @@ MPI_Isend is the fastest on average, though the performance between the four is 
 Considering both performance and complexity of applying the method, MPI_Send is the best choice. It provides near speeds of MPI_Isend with minimal additional setup. Similarly, it doesn't provide any of the potential errors that could come with Rsend if the timings dont work.
 
 
-##Part 2: Benchmarking latency and bandwidth 
+## Part 2: Benchmarking latency and bandwidth 
 
 ***Writing the pingpong program:***
 The first step of part two was to implement a "ping pong" communication program. The purpose of the program is to measure the average time average time required to send two messages back and forth between a root and a client.
@@ -172,7 +172,7 @@ The bandwidth remains the same across both runs, slightly varying in value. This
 
 
 
-##Part 3: Collective Communications
+## Part 3: Collective Communications
 
 Part three of this weeks task saw the replacement of point to point communications with MPI collective communications. Using the program for vector addition from week three, a new method a communication was implemented to test which method would be the fastest.
 To test how performance increases 3 tests were benchmarked:
