@@ -157,7 +157,7 @@ Second run (num of pings = 100,000)
 The average time was plotted against the message size of the array in bytes. Assuming the y-axis is average time per pingpong and the x-axis is the array size, the y-interceot corresponds to the latency as it is the time value when the array is size 0.
 We can then say the slope is 1/bandwidth, since the slope desribes how much extra time is need per extra data. Bandwidth was then found using 1/slope.
 
-![plot](plot.png)
+![plot](plot_bandwidth.png)
 
 The first run procduced a the following results:
 	-Latency: 6.496 μs
