@@ -31,6 +31,7 @@ plt.plot(message_sizes2, m2*message_sizes2, color='orange', linestyle='-')
 plt.xlabel('Message Size (Bytes, log scale)')
 plt.ylabel('Average Time per PingPong (s)')
 plt.title('MPI PingPong: Time vs Message Size with Linear Fit')
+plt.ylim(-0.00001, 0.0005)
 plt.savefig("plot.png")
 plt.grid()
 
