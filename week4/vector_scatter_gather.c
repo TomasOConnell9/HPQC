@@ -131,7 +131,7 @@ int root_task(int uni_size, int num_args)
         printf("Time it took to sum the array: %f seconds\n", end_time - start_time);
 
 	//free the allocated memeory
-        free(my_array);
+    free(my_array);
 	free(recvbuf);
 	free(gathering_array);
 
