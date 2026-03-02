@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <mpi.h>
 
 void check_args(int argc, char **argv, int* points, int* cycles, int* sample, char** output_path);//update check args to see user input
 void initialise_vector(double vector[], int size, double initial);
@@ -16,6 +17,8 @@ int main(int argc, char **argv)
 {
 	int points, cycles, sample;
 	char* output_path;
+
+	int my_rank, uni_size;
 
 	check_args(argc, argv, &points, &cycles, &sample, &output_path);
 
@@ -33,14 +36,15 @@ int main(int argc, char **argv)
 }
 
 
-int MPI_task(int points, int cycles, int sample, char* output_path, int my_rank, int uni_size)
+void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank, int uni_size)
 {
+	int MPI_Status status;
 	int time_steps = cycles * sample + 1;
-	double step_size;
+	double step_size = 1.0 / sample;
 
 	int chunk = points / uni_size; //how many points per process
 	int leftover = points % uni_size;
-	my_points = chunk; //each rank recieves a chunk
+	int my_points = chunk; //each rank recieves a chunk
 
 	//allocate the leftover values to root task
 	if (my_rank == 0)
@@ -53,17 +57,37 @@ int MPI_task(int points, int cycles, int sample, char* output_path, int my_rank,
         initialise_vector(time_stamps, time_steps, 0.0);
         generate_timestamps(time_stamps, time_steps, step_size);
 
-
-	//split each process into their chunk
-
-	//for each chunk, update their position for each time_step
-
-	//for each MPI process send last value from its array to the next array since update_position needs i-1
-
-	//then we need to root to gather all the positions and write to the outfile
+	// get reach ranks positions
+	double* my_positions = malloc(my_points * sizeof(double));
+	initialise_vector(my_positions, my_points, 0.0);
 
 
-	FILE* outfile;
+	// iterate through timestep and and update position
+	for (int t = 0; t < time_steps; t++)
+	{
+		// we need to send the receive the last element in the previous array
+		if (rank != 0)
+		{
+			//not sure how to do right now, comeback to this
+			MPI_Recv(/*address of where im recving*/, 1, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD, &status);
+		}
+
+		// update the function using the function
+		update_positions(my_positions, my_points, time_stamps[i];
+
+		// send so iteration can recieve
+		if (rank != uni_size - 1)
+		{
+			MPI_Send(local_positions[my_points -1], 1, MPI_DOUBLE, my_rankk + 1, 0, MPI_COMM_WORLD);
+		}
+		//gather up all the positions
+		MPI_Gather();
+	}
+
+	
+
+
+	FILE* out_file;
 	if (my_rank ==0)
 	{
 		out_file = fopen(output_path, "w");
