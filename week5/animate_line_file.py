@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -308,6 +311,16 @@ def get_file_name(extension="txt"):
     return filename
 
 
+def get_gif_name():
+    """This function asks the user for their desrired name of the gif
+    that will be saved in the data directory
+    """
+
+    output_gif = input("What will I save the gif as?")
+
+    return output_gif
+
+
 def main():
     """This is the main function that executes the rest of the program
     Using a main function instead of executing directly in the global 
@@ -332,8 +345,11 @@ def main():
     ani = animation.FuncAnimation(fig, animate, num_times, interval=interval, blit=True, # mandatory animation arguments
                                   fargs=(data, rope)) # arguments to the animate function
 
+    #get the name of the gif file
+    gif_output_name = get_gif_name()
+
     # saves the animation to disk
-    filename = generate_path(basename = 'animate_string_file', extension = 'gif')
+    filename = generate_path(basename = gif_output_name, extension = 'gif')
     ani.save(filename=filename, writer="pillow", fps=fps)
 
 
