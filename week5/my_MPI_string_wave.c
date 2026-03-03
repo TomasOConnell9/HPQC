@@ -7,7 +7,7 @@ void check_args(int argc, char **argv, int* points, int* cycles, int* sample, ch
 void initialise_vector(double vector[], int size, double initial);
 void print_vector(double vector[], int size);
 int sum_vector(int vector[], int size);
-void update_positions(double* positions, int points, double time);
+void update_positions(double* positions, int points, double time, double value_coming_across, int is_root);
 int generate_timestamps(double* time_stamps, int time_steps, double step_size);
 double driver(double time);
 void print_header(FILE** p_out_file, int points);
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 
 void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank, int uni_size)
 {
-	int MPI_Status status;
+	MPI_Status status;
 	int time_steps = cycles * sample + 1;
 	double step_size = 1.0 / sample;
 
@@ -61,45 +61,64 @@ void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank
 	double* my_positions = malloc(my_points * sizeof(double));
 	initialise_vector(my_positions, my_points, 0.0);
 
+	//need somewhere to store all our values in rank 0
+	double* all_positions = (double*) malloc(points * sizeof(double));
+
+	FILE* out_file;
+        if (my_rank ==0)
+        {
+                out_file = fopen(output_path, "w");
+                if (out_file == NULL)
+                {
+                        fprintf(stderr, "ERROR, could not open this file");
+                        exit(-1);
+                }
+                print_header(&out_file, points);
+        }
+
 
 	// iterate through timestep and and update position
 	for (int t = 0; t < time_steps; t++)
 	{
+		//initalise the value that has to come across
+		double value_coming_over = 0.0;
+
 		// we need to send the receive the last element in the previous array
-		if (rank != 0)
+		if (my_rank != 0)
 		{
-			//not sure how to do right now, comeback to this
-			MPI_Recv(/*address of where im recving*/, 1, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD, &status);
+			//value is 0.0 currently, when in root we dont add anything
+			MPI_Recv(&value_coming_over, 1, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD, &status);
 		}
 
 		// update the function using the function
-		update_positions(my_positions, my_points, time_stamps[i];
+		update_positions(my_positions, my_points, time_stamps[t], value_coming_over, my_rank == 0);
 
 		// send so iteration can recieve
-		if (rank != uni_size - 1)
+		if (my_rank != uni_size - 1)
 		{
-			MPI_Send(local_positions[my_points -1], 1, MPI_DOUBLE, my_rankk + 1, 0, MPI_COMM_WORLD);
+			MPI_Send(&my_positions[chunk - 1], 1, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD);
 		}
 		//gather up all the positions
-		MPI_Gather();
-	}
+		MPI_Gather(my_positions, chunk, MPI_DOUBLE, all_positions, chunk, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
-	
-
-
-	FILE* out_file;
-	if (my_rank ==0)
-	{
-		out_file = fopen(output_path, "w");
-		if (out_file == NULL)
+		if (my_rank == 0)
 		{
-			fprintf(stderr, "ERROR, could not open this file");
-			exit(-1);
+			fprintf(out_file, "%d, %lf", t, time_stamps[t]);
+			for (int j = 0; j < points; j++)
+                	{
+                        	// prints each y-position to a file
+                        	fprintf(out_file, ", %lf", all_positions[j]);
+                	}
+                	// prints a new line
+                	fprintf(out_file, "\n");
 		}
-		print_header(&out_file, points);
 	}
 
-	//
+	// free malloc when done
+	free(time_stamps);
+	free(my_positions);
+	free(all_positions);
+	fclose(out_file);
 }
 
 
@@ -150,10 +169,35 @@ double driver(double time)
 }
 
 // defines a function to update the positions
-void update_positions(double* positions, int points, double time)
+void update_positions(double* positions, int points, double time, double value_coming_across, int is_root)
 {
-        
+	// creates a temporary vector variable for the new positions
+        double* new_positions = (double*) malloc(points * sizeof(double));
+
+	if (is_root)
+	{
+		new_positions[0] = driver(time);
+	}
+	else
+	{
+		new_positions[0] = value_coming_across;
+	}
+
+	// creates new positions by setting value of previous element
+	for (int i = 1; i < points; i++)
+	{
+		new_positions[i] = positions[i-1];
+	}
+	// propagates these new positions to the old ones
+	for (int i = 0; i < points; i++)
+        {
+                positions[i] = new_positions[i];
+        }
+
+	// frees the temporary vector
+	free(new_positions);
 }
+
 
 
 
