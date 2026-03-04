@@ -9,37 +9,37 @@ Finally, the physics of the system is improved so that it more accuratly represe
 
 ## Part 1: Serial Code
 
-This section of the assignement will make use of the "string_wave.c" given as part of this weeks tasks. The program simualted an oscillating string by simualting and tracking the position of points across the string. Each time_step within the program the first point is the "driver" and each point after that takes the value of the one before it. The rest of the functions work at ensuring the physics works smoothly and that the data is saved to a csv.
+This section of the assignement will make use of the `string_wave.c` given as part of this weeks tasks. The program simualted an oscillating string by simualting and tracking the position of points across the string. Each time_step within the program the first point is the "driver" and each point after that takes the value of the one before it. The rest of the functions work at ensuring the physics works smoothly and that the data is saved to a csv.
 
 To compile the code for this section:
-	- "gcc string_wave.c" -o bin/string_wave -lm
+	- `gcc string_wave.c -o bin/string_wave -lm`
 
 The -lm in needed for this program to comiple. The math.h library is included in the script and the compile needs -lm as an argument to bound it to the compiler.
 
 Once the script is compiled and the binary file exists the csv file can be generated using:
-	- "./bin/string_wave [points]"
+	- `./bin/string_wave [points]`
 
 When this is ran, the program is going to create a string_wave.csv file in the data directory, if this directory doesn't exist the file will not execute properly and will crash. Ensure there is a directory called "data" so the csv file can be generated.
 The "points" command line argument desides how many unique elements (points) are along the strong. 
 The amount of cycles, samples and the name of the output file is currently hardcoded into the script so this is something you don't need to be concerned with when running the file at this point.
 
 As a final step for the serial code, the output can be visualised using the give script "annimate_line_file.py). Thus file takes the csv, and uses the data to produce a gif of the osccialting string. To generate this run:
-	- "python3 HPQC/week5/animate_line_file.py data/string_wave.csv"
+	- `python3 HPQC/week5/animate_line_file.py data/string_wave.csv`
 
-Running this line will generate a gif called " .gif" in the data directory. Running this on cheetah was difficult for me as I was having an issue with a graphical interface. To get around this, I used ran the following line from my powershell:
-	-"srp  " 
+Running this line will generate a gif called ` .gif` in the data directory. Running this on cheetah was difficult for me as I was having an issue with a graphical interface. To get around this, I used ran the following line from my powershell:
+	-`srp  ` 
 
 This will prompt you to input you frank/cheetah password, and once entered will download the gif onto your Windows PC. From here the gif will be viewable in full. The correct output will show an oscilating sin wave from right to left.
 
 ***Removing the hardcoded aspects of the script:***
 
-Next I a new script "my_string_wave.c" was created. The idea of this script was to take the logic and function of the previous "string_wave_serial.c" and update it so that it no longer had hardcoded paramaters but instead they could be selected by the user, like for the "points" paramater.
+Next I a new script `my_string_wave.c` was created. The idea of this script was to take the logic and function of the previous `string_wave_serial.c` and update it so that it no longer had hardcoded paramaters but instead they could be selected by the user, like for the "points" paramater.
 The development of this was simple enough, rather than reading in a single argument I updated it so that the program expected 4 inputs, points, cycles, sample and output_file name. Now, after compiling the code the same was as before, we can now run:
-	-"./bin/string_wave [points] [cycles] [sample] [filename]
+	-`./bin/string_wave [points] [cycles] [sample] [filename]`
 
 This makes it much easier to control what sort of wave data is produced.
 
-Similaraly, "animate_line_file.py" was updated with a function that requests the user for an input when ran. The input prompts the user the input the name of gif they wish to create. This again aids in creating different gifs for comparing.
+Similaraly, `animate_line_file.py` was updated with a function that requests the user for an input when ran. The input prompts the user the input the name of gif they wish to create. This again aids in creating different gifs for comparing.
 
 
    
