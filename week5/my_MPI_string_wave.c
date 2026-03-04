@@ -38,6 +38,7 @@ int main(int argc, char **argv)
 
 void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank, int uni_size)
 {
+	double start_time, end_time;
 	MPI_Status status;
 	int time_steps = cycles * sample + 1;
 	double step_size = 1.0 / sample;
@@ -76,6 +77,7 @@ void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank
                 print_header(&out_file, points);
         }
 
+	start_time = MPI_Wtime();
 
 	// iterate through timestep and and update position
 	for (int t = 0; t < time_steps; t++)
@@ -114,11 +116,21 @@ void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank
 		}
 	}
 
+	end_time = MPI_Wtime();
+
+	if (my_rank == 0)
+	{
+		printf("Time it took for the csv to be created: %f seconds\n", end_time - start_time);
+	}
+
 	// free malloc when done
 	free(time_stamps);
 	free(my_positions);
 	free(all_positions);
-	fclose(out_file);
+	if (my_rank == 0)
+	{
+		fclose(out_file);
+	}
 }
 
 
