@@ -31,7 +31,7 @@ Running this line will generate a gif called " .gif" in the data directory. Runn
 
 This will prompt you to input you frank/cheetah password, and once entered will download the gif onto your Windows PC. From here the gif will be viewable in full. The correct output will show an oscilating sin wave from right to left.
 
-***Removing the hardcoded aspects of the script:"
+***Removing the hardcoded aspects of the script:***
 
 Next I a new script "my_string_wave.c" was created. The idea of this script was to take the logic and function of the previous "string_wave_serial.c" and update it so that it no longer had hardcoded paramaters but instead they could be selected by the user, like for the "points" paramater.
 The development of this was simple enough, rather than reading in a single argument I updated it so that the program expected 4 inputs, points, cycles, sample and output_file name. Now, after compiling the code the same was as before, we can now run:
