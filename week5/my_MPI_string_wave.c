@@ -40,6 +40,7 @@ void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank
 {
 	double start_time, end_time;
 	MPI_Status status;
+	MPI_Request recv_req, send_req;
 	int time_steps = cycles * sample + 1;
 	double step_size = 1.0 / sample;
 
@@ -88,17 +89,42 @@ void MPI_task(int points, int cycles, int sample, char* output_path, int my_rank
 		// we need to send the receive the last element in the previous array
 		if (my_rank != 0)
 		{
-			//value is 0.0 currently, when in root we dont add anything
-			MPI_Recv(&value_coming_over, 1, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD, &status);
+			// value is 0.0 currently, when in root we dont add anything
+			// this needs to be non-blocking
+			MPI_Irecv(&value_coming_over, 1, MPI_DOUBLE, my_rank - 1, 0, MPI_COMM_WORLD, &recv_req);
 		}
 
-		// update the function using the function
-		update_positions(my_positions, my_points, time_stamps[t], value_coming_over, my_rank == 0);
+		// update every value excluding the left most value or index 0
+		if (my_rank == 0)
+		{
+			update_positions(my_positions, my_points, time_stamps[t], value_coming_over, 1);
+		}
+		else
+		{
+			// here we are skipping the first element as we dont want to update yet
+			update_positions(my_positions + 1, my_points -1, time_stamps[t], value_coming_over, 1);
+		}
+
+		//for all non root processes we need to wait for the boundary
+		if (my_rank != 0)
+		{
+			MPI_Wait(&recv_req, &status);
+		}
+
+		//update the boundary with driver (rank 0) or the new value coming from previous process
+		if (my_rank == 0)
+		{
+			my_positions[0] = driver(time_stamps[t]);
+		}
+		else
+		{
+			my_positions[0] = value_coming_over;
+		}
 
 		// send so iteration can recieve
 		if (my_rank != uni_size - 1)
 		{
-			MPI_Send(&my_positions[chunk - 1], 1, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD);
+			MPI_Isend(&my_positions[chunk - 1], 1, MPI_DOUBLE, my_rank + 1, 0, MPI_COMM_WORLD, &send_req);
 		}
 		//gather up all the positions
 		MPI_Gather(my_positions, chunk, MPI_DOUBLE, all_positions, chunk, MPI_DOUBLE, 0, MPI_COMM_WORLD);
