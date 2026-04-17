@@ -3,7 +3,7 @@
 
 # This README.md file contains instructions on how the benchmarking test was ran for each script and the summary of my findings for each test.
 
-Part 1: Time to print
+## Part 1: Time to print
 
 The first benchmarking test conducted was testing the print time of numbers to terminal. 
 Using the given scripts time_print.py and time_print.c a comparison between run.
@@ -16,7 +16,7 @@ For small values of n, python ran marginally outperformed C by microseconds.
 At roughly n=1,000 C catches up in speed, and by n=10,000 C is sighly faster.
 As n sours C increasingly becomes more dominant, at n=10,000,000 C runs in 4.6 seconds while it takes python 7.3 seconds to perform the same task.
 
-Part 2: Time to write to file
+## Part 2: Time to write to file
 
 For the second benchmarking test, I took the existing time_print scripts and altered them to store their data in a txt file.
 As mentioned as part of the assignment I created a data directory to keep the data files away from my git repository.
@@ -30,7 +30,7 @@ Comparing the results, C is much quicker regardless of the inputted n. Unlike pa
 As n grows, the difference between run time also grows. When n = 10,000,000 python takes 4.267 seconds whereas in C it only takes 1.3 seconds.
 Additionally, it's evident that it takes less time to save the data to a txt file than it does to print the results in terminal. For example, writing 10 million numbers to terminal takes 7.3s but only 4.27 to write to a file.
 
-Part 3: Time to read
+## Part 3: Time to read
 
 The final part of week2 was to compare how each language did at reading the saved data to memory. Similar to part two, the supplied C and python scripts could be slightly altered to now read a file instead of write to file.  
 As mentioned, the python pragram "time_write.py" saves each dataset with the number ran. For example "python3 time_write 1000" saves a file called "python_timetowrite_1000".
