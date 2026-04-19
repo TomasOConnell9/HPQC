@@ -3,7 +3,7 @@
 # Overview 
 This week the first step of simulating a qunatum computer in Python was built. The processes of building the simulator involves several stages, this week focuses on representing the quantum state in Python, how qubits are constructed and added to systems as well as introducing the basic quantum gates and manipulation of the quantum states. 
 
-# Part 1: 
+# Part 1
 The first part of the simulator involved devloping two functions, `pushQubit` and `applyGate`. These functions can be found in the `pushing_qubits_onto_stack.py` script in the week 7 repository. `pushQubit` takes a qubit and pushes it to a current quantum state by applying a Kroneckere product between the exisiting state and the new qubit. This results in the qubit becoming part of the system and the state vector dubling in size to account for all possible combinations of the new qubit. Next, the `applyGate` function performs operations on the qunatum state by applying predefined quantum gates on the state. This in done with matrix multiplication allowing for the flipping of qubits or the development of new superpositions.
 
 To investigate how these gates work I developed the `gate_operations.py` script. This scripts acts as a simple testing enviroment so users can select a quantum gate and observe the effect that it has on a basic qunatum state. 
@@ -25,7 +25,7 @@ To demonstate how the script works here are four qunatum gates acting on a stand
 
 These results demonstrate how each of the gates transforms the state vectors to new vectors. The X gate performs a flipping of states, the Y gate also flips the state but introduces a complex phase shift, resulting in an output with imaginary components instead of real. The Z gate leaves the state unchanged in this example, and finally the Hadamard gate (H) creates a suerposition from the definite state [[1. 0.]], giving an equal combination of both staes.
 
-# Part 2:
+# Part 2
 
 The next part of the process involved adding a new function called tosQubit. This operations rearranges the quantum state so that the selected quibit is moved to the top of the stock (tos). This is done as gate operations are applied to the leading qubits in a state, so we need a function that can move a given qubit to the top of the stack.
 
@@ -37,7 +37,7 @@ The script first pushes a [1,0] qubit and then follows pushing a second qubit [0
 
 - 'python3 tos.py'
 
-# Part3: 
+# Part3
 The final core part of this weeks simulation was turning these state vectors into physical measurements implementing a `probQubit` and `measureQubit` function. 
 
 First, the `probQubit` function calculates the probability of the top qubit in the stack being either a 1 or a 0. This is done by calculating the square norm of each value.
@@ -61,3 +61,9 @@ The script has a qubit initialised with weights [0.6,0.8], these wights correspo
 
 As the number of measurements increases, the observed outcome converges towards the expected probabilities for the quantum state.
 
+# Improving the Simulator
+Before moving onto the next stage of the simulator some of the functions were changed to make them more intuitive and easier to work with, the script `improved_functions/py` has the implementation of the new functions. The main improvements come from the simulator allowing qubits to be referenced by name rather than position. 
+
+1. `pushQubit`: The functions now accpets a name for the qubit to allow users to track the ordering of the state.
+2. `tosQubit`: The function now allows users to name the qubit that they want to bring to the top of the stack instead of naming the position.
+3. `applyGate`: Users can npw put a name in with the function as well as the gate, the function will bring the qubit to the top of the stack before applying the operation.
