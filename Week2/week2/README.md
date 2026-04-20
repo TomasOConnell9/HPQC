@@ -17,9 +17,10 @@ Next, compile the `time_print.c` script using `gcc time_print.c -o {filename}`, 
 Using the results of both scripts we can compare the run times for each language.
 
 ### Results:
-For small values of n, python ran marginally outperformed C by microseconds.
-At roughly n=1,000 C catches up in speed, and by n=10,000 C is sighly faster.
-As n sours C increasingly becomes more dominant, at n=10,000,000 C runs in 4.6 seconds while it takes python 7.3 seconds to perform the same task.
+For small values of `n`, Python marginally outperformed C by microseconds. At approximately `n=1,000` C catches up in speed mirroring Pythons times. As `n` increases to standard sized values, C begins to outperform Python consistently with the performance gap becoming more noticeable as `n` increases to larger and larger values.
+By `n=10,000,000` C demonstate much better perfromance, completing the task in approximately 4.6 seconds while it takes python 7.3 seconds to perform the same task.
+
+The results observed in part 1 highlight the improved scalability of C for large-scale iterative tasks.
 
 ## Part 2: Time to write to file
 
