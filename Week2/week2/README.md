@@ -24,17 +24,19 @@ The results observed in part 1 highlight the improved scalability of C for large
 
 ## Part 2: Time to write to file
 
-For the second benchmarking test, I took the existing time_print scripts and altered them to store their data in a txt file.
-As mentioned as part of the assignment I created a data directory to keep the data files away from my git repository.
-The python script saves each data set to the data directory with the user selected n in the name to make it easier for part 3. C however just saves the data with a common name regardless of n.
+### Method:
+For the second benchmarking test, the existing `time_print` scripts were altered so that instead of the numbers being printed to terminal they were saved to a `.txt` file instead.
+A seperate repositiory was made to store the `.txt` files so they don't crowd the current repository.
+The Python script saves each dataset to the data directory, with the user defined value of `n` included in the filename to facilitate use in Part 3. In contrast, the C implementation saves all outputs using a single fixed filename, regardless of the value of n.
 
 Similar to part 1, the python script is ran with the same command. This time the data is not printed on screen but instead saved to an external file.
-The script still returns a "time" result informing how long it took to perform the task.
-The same process occurs for C.
+The script outputs the execution time so both languages can be compared. The same process is then applied for the C file. As before the file should first be compiled and then the executable should be ran.
 
-Comparing the results, C is much quicker regardless of the inputted n. Unlike part 1, where python became slower as n increased, python is much slower from the beggining.
-As n grows, the difference between run time also grows. When n = 10,000,000 python takes 4.267 seconds whereas in C it only takes 1.3 seconds.
-Additionally, it's evident that it takes less time to save the data to a txt file than it does to print the results in terminal. For example, writing 10 million numbers to terminal takes 7.3s but only 4.27 to write to a file.
+### Results:
+Comparing the results, C is consistently faster than Python across all values of `n`. Unlike Part 1, where Python only becomes slower at larger input sizes, it is slower from the outset in this test.
+As `n` grows, the difference between run time also grows. When `n = 10,000,000` Python takes approximately 4.267 seconds to complete, whereas C only takes 1.3 seconds.
+
+Additionally, it is evident that writing data to a file is significantly faster than printing results to the terminal. For example, printing 10 million numbers to the terminal takes approximately 7.3 seconds, whereas writing the same data to a file takes only 4.27 seconds.
 
 ## Part 3: Time to read
 
