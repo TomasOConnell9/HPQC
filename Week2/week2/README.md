@@ -40,30 +40,36 @@ Additionally, it is evident that writing data to a file is significantly faster 
 
 ## Part 3: Time to read
 
-The final part of week2 was to compare how each language did at reading the saved data to memory. Similar to part two, the supplied C and python scripts could be slightly altered to now read a file instead of write to file.  
-As mentioned, the python pragram "time_write.py" saves each dataset with the number ran. For example "python3 time_write 1000" saves a file called "python_timetowrite_1000".
-Running "python3 time_read.py 10" will open "python_timetowrite_10.txt" and read through each line, until reaching the end and it'll then print the time taken.
-For C the file isnt save with a specific name instead the most recent written dataset is called "c_timetowrite.txt". Similar to the python script this text file is then opened by the c pragram and read and time is recorded.
-Since there is only one C txt file, before running the "time_read.c" script run the "time_write.c" script for the desrired tested n.
+### Method:
+The final part of Week 2 was to compare how each language performs at reading the saved data to memory. Similar to Part 2, the provided C and Python scripts were slightly altered to now read a file instead of write to file.  
+As previously mentioned, the Python pragram `time_write.py` saves each dataset using the user defined value of `n` in the filename. For example `python3 time_write 1000` saves a file called `python_timetowrite_1000.txt`.
 
-This task was the quickest of the three. Both programs asa expected start out extremely quick taking fractions of a milliscond to read the data to memory.
-As n is increaded however, time to read doesn't grow as exponentially as it it did for time to write and time to print for either language.
-In python it took a tenth of of the time it takes to write 10,000,000 numbers to a data set than it does to read them.
+To now benchmark the reading time, executing `python3 time_read.py 10` will open "python_timetowrite_10.txt" and read through each line until the end and return the total execution time.
 
-Comparing the results of both languages, C still retains its advantage only taking 0.226 seconds to read a million numbers, whereas it took python 0.44 seconds to complete the same task.
+In C the file isnt save with a specific name instead the most recent written dataset is called "c_timetowrite.txt". Similar to the python script this text file is then opened by the c pragram and read and time is recorded.
 
-Conclusion: Runtime Behaviour of C vs Python
+In the C implementation, the data is stored in a single file named `c_timetowrite.txt`, regardless of the value of `n`. Therefore, before running `time_read.c`, the corresponding `time_write.c` program must be executed for the required input size.
+
+### Results:
+This task was the quickest of the three. As expected both languages execute extremely quickly, taking fractions of a milliscond to read the data into memory.
+As `n` is increaded, time to read doesn't grow as exponentially as it it did for time to write and time to print for either language. This suggests both language scale more efficently for reading operations than output operations.
+
+In Python reading large datasets takes significantly less time than writing them. For example, reading 10,000,000 values takes approximately one-tenth of the time required to write them.
+
+When comparing the results of both languages C still maintains a slight performance advantage. For instance, reading `1,000,000` numbers takes approximately 0.266 seconds in C compared to 0.44 seconds in Python.
+
+## Conclusion: Runtime Behaviour of C vs Python
 
 From the three benchmarking tests conducted clear trends emerge in the difference between C and Pythons perrformance across different operations.
 
-1. For all taks the size of n is the dominant factor affecting runtime. At small values of n, the difference between C and Python is negligible. However as seen, when n is increased C scales significantly better than Python.
+1. For all taks the size of `n` is the dominant factor affecting runtime. At small values of `n`, the difference between C and Python is negligible. However as seen, when `n` is increased C scales significantly better than Python.
 
-2. Printing to terminal is the slowest operation for both languages. For small n python slightly outperformed C but as n reached 1000 C caught up with python performance wise and continued to out perform it from there. It seems that the main bottleneck in printing data to a screen is the terminal itself.
+2. Printing to terminal is the slowest operation for both languages. For small `n` python slightly outperformed C but as `n` reached 1000 C caught up with Python's performance and continued to out perform it from there. It seems that the main bottleneck in printing data to a screen is the terminal itself.
 
 3. Writing to file is much faster than printing in the terminal. Unlike printing to terminal Python is slower from the outset and gets worse as n increases. C is clearly more efficient at file I/O than Python.
 
-4. The quickest of the 3 tasks was reading the data to memory. Similar to before C quickly outperforms Python as n is increased. The runtimes in general are much slower than that of printing and writing.
+4. The quickest of the 3 tasks was reading the data to memory. Similar to before C quickly outperforms Python as `n` is increased. The runtimes in general are much slower than that of printing and writing.
 
-My main take away from the benchmarking test is that despite its simplicity and ease to uses, Python is not ideal for all tasks. C is better suited for performance critical tasks or large scale data processing. As the size of the problem grows C is the optimal choice, esspecially is I/O is involved.
+The take away from the benchmarking test is that despite its simplicity and ease to uses, Python is not ideal for all tasks. C is better suited for performance critical tasks or large scale data processing. As the size of the problem grows C is the optimal choice, esspecially is I/O is involved.
 
 
