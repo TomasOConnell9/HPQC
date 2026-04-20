@@ -1,7 +1,5 @@
 
-# Week 2
-
-# This README.md file contains instructions on how the benchmarking test was ran for each script and the summary of my findings for each test.
+# Week 2 - Benchmarking C vs Python
 
 ## Part 1: Time to print
 
