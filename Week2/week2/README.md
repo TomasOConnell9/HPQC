@@ -1,15 +1,22 @@
 
 # Week 2 - Benchmarking C vs Python
 
-## Part 1: Time to print
+## Overview
+This weeks taks involved comparing the performance of Python and C across three computational tasks:
+1. Printing numbers to the terminal
+2. Writing numbers to a file
+3. Reading numbers from a file
+The main objective is to evaliate how each language scales with increasing input size n, with the hopes of obtaining a clear answer of which language has better performance.
 
-The first benchmarking test conducted was testing the print time of numbers to terminal. 
-Using the given scripts time_print.py and time_print.c a comparison between run.
-First, run "python3 time_print.py {n}" where n in the number of desired numbers, this will print all n numbers and then return the length of time it took for th
-Next, ensure the time_print.c file is compiled using "gcc time_print.c -o {filename}.
-Once successfully compiled run "./{filename} {n}, where filename is the compile.
+
+## Part 1: Time to print
+### Method:
+The first benchmarking test conducted was testing the print time of numbers to terminal using the given scripts `time_print.py` and `time_print.c` located in the repository. The Python script can be run using `python3 time_print.py {n}` where `n` is the desired number of values printed in the terminal. The program will print all `n` numbers and then output the total execution time for the operation.
+
+Next, compile the `time_print.c` script using `gcc time_print.c -o {filename}`, where `{filename}` is the user defined name for the output executable. Once successfully compiled run `./{filename} {n}`, again where `{filename}` is the selected user defined name for the executable.
 Using the results of both scripts we can compare the run times for each language.
 
+### Results:
 For small values of n, python ran marginally outperformed C by microseconds.
 At roughly n=1,000 C catches up in speed, and by n=10,000 C is sighly faster.
 As n sours C increasingly becomes more dominant, at n=10,000,000 C runs in 4.6 seconds while it takes python 7.3 seconds to perform the same task.
