@@ -23,13 +23,16 @@ When this is ran, the program is going to create a string_wave.csv file in the d
 The "points" command line argument desides how many unique elements (points) are along the strong. 
 The amount of cycles, samples and the name of the output file is currently hardcoded into the script so this is something you don't need to be concerned with when running the file at this point.
 
-As a final step for the serial code, the output can be visualised using the give script "annimate_line_file.py). Thus file takes the csv, and uses the data to produce a gif of the osccialting string. To generate this run:
+As a final step for the serial code, the output can be visualised using the give script `annimate_line_file.py`. Thus file takes the csv, and uses the data to produce a gif of the osccialting string. To generate this run:
 	- `python3 HPQC/week5/animate_line_file.py data/string_wave.csv`
 
 Running this line will generate a gif called ` .gif` in the data directory. Running this on cheetah was difficult for me as I was having an issue with a graphical interface. To get around this, I used ran the following line from my powershell:
-	-`srp  ` 
+	-`scp -J [username]@www.physics.dcu.ie [username]@cheetah.physics.dcu.ie:~/data/animate_string_file.gif [location on personal computer]` 
 
 This will prompt you to input you frank/cheetah password, and once entered will download the gif onto your Windows PC. From here the gif will be viewable in full. The correct output will show an oscilating sin wave from right to left.
+
+![Alt Text](sample_animation.gif.gif)
+
 
 ***Removing the hardcoded aspects of the script:***
 
