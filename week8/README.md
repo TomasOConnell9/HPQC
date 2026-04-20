@@ -107,3 +107,5 @@ The final output of the algorithm is 11111101, this represents the state with th
 By increasing the size to 12, the amount of iterations grows. This is the expected relationship as the dimentions increase by 2^n, where n is the number of qubits. The results shown here highlight how for larger qubits the increased iterations is needed. In the 8 bit example we discussed how by iteration 6 the system was 75% sure of the correct state, now in this 12 bit state the algorithm is still roughly 50/50 by iteration 6. 
 
 
+#Conclusion
+This weeks task successfully implemented Grover's algorithm, using the concepts developed in last weeks task. The implementation demonstates how quantum phase oracles and diffusion operators can be combined to search for a correct solution in an unordered dataset. The results clearly showed the convergence towards the correct solution, with the probability of the target state increasing over the iterations. 
