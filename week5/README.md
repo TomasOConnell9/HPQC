@@ -31,7 +31,7 @@ Running this line will generate a gif called ` .gif` in the data directory. Runn
 
 This will prompt you to input you frank/cheetah password, and once entered will download the gif onto your Windows PC. From here the gif will be viewable in full. The correct output will show an oscilating sin wave from right to left.
 
-![Alt Text](sample_animation.gif.gif)
+![Alt Text](sample_animation.gif)
 
 
 ***Removing the hardcoded aspects of the script:***
