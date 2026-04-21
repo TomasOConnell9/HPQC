@@ -63,7 +63,7 @@ The original `string_wave.c` simulation used a simplified model of a string osci
 **Changes:**
 The main changes come in the `update_positions` function. The function now takes in velocity values and acceleration as these are now needed to calculate the movement of each point. Within the function itself the driver remains the same but now every point on the string has a force from its left and right which change its behaviour. The implementation of the force on each points allows for a more natural and physical model instead of simple propagation seen in the original.
 
-The script retains the removed hardcoded paramters points, cycles, samples and filename from the script so users can run their desired setups. However for simplicity the spring constant `k` and mass of the points `m` are hardcoded into the script so there aren't an overwhelming amoung of paramters for users to input to run the script. The spring constant is set to 0.5 and the mass is set to 1.
+The script retains the removed hardcoded paramters points, cycles, samples and filename from the script so users can run their desired setups. However for simplicity the spring constant `k` and mass of the points `m` are hardcoded into the script so there aren't an overwhelming amoung of paramters for users to input to run the script. The spring constant is set to 0.5, the mass to 1 and the timestep is now hardcoded to 1.
 
 **Compiling:**
 To compile and run the script yourself:
@@ -78,4 +78,6 @@ To test the result of the script I ran the following test, `./bin/string_wave_sp
 
 ![Alt Text](spring_wave_50_5_100.gif)
 
-The spring begins oscillating as normal until it hits the wall, this causes the wave to start moving back through the wave resulting in a more unpredictable and non uniform wave.
+The simulation above behaves as expected, the string begins to oscillate as normal but once the wave reaches the fixed end, the string bounces back through the string resulting in an interference between the two travelling waves. This results in the non uniform pattern observed.
+
+
