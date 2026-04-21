@@ -48,8 +48,12 @@ Similaraly, `animate_line_file.py` was updated with a function that requests the
 
 ## Part 2: MPI
 
-The second part of this weeks task was to parallelise the simulation using MPI so that multiple processes can handle different segments of the string simultaneously. I was unable to successfully implement this correctly but my attempt located in 
+The second part of this weeks task was to parallelise the simulation using MPI so that multiple processes can handle different segments of the string simultaneously. I was unable to successfully implement this correctly but my attempt located in `my_MPI_string_wave.c`.
 
+**Attemptted method:**
+First I split the string up into chunks, I evenly split each based of the amount of processes the program is using. If the program is not evenly divided I just added to leftover calcualtions to rank 0. I set it up so each section runs their calcaultions for each point on the string, and included non-blocking MPI communication between the proccess so they can send boundary contitions between them. After each segment performs their designated calcualtions rank 0 collects all the values using `MPI_Gather`, I included this as trying to update the output file simultaneously was not a viable solution, meaning rank 0 handles all the file writing.
+
+Unfortunately the designed solution does not work, the file will compile and run sucessfully but the resulting gif is not something that makes sense. Despite the issues I believe some small changes will result in the correct solution. 
 
 
 ## Part 3: Improve Physics model
@@ -73,3 +77,5 @@ Users can then run the compiled script for any set of paramterrs they like.
 To test the result of the script I ran the following test, `./bin/string_wave_spring 50 5 100 spring_wave_50_5_100`
 
 ![Alt Text](spring_wave_50_5_100.gif)
+
+The spring begins oscillating as normal until it hits the wall, this causes the wave to start moving back through the wave resulting in a more unpredictable and non uniform wave.
