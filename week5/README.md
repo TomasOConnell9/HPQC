@@ -48,6 +48,7 @@ Similaraly, `animate_line_file.py` was updated with a function that requests the
 
 ## Part 2: MPI
 
+The second part of this weeks task was to parallelise the simulation using MPI so that multiple processes can handle different segments of the string simultaneously. I was unable to successfully implement this correctly but my attempt located in 
 
 
 
