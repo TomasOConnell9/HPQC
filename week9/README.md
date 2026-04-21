@@ -8,3 +8,7 @@ Week 9 investigates the final step of simulating a quantum computer in Python. T
 
 The first part of this week is to install and import the PyTorch package. From there users can ensure that their system has a compatible GPU to use. If no GPU is detected the script will inform the user a CPU is avalible.
 To check users can use the `GPU_check.py` script by running `python3 GPU_check.py`
+
+## Part 2
+
+The second script `GPU_grover.py` is a script to compare the CPU performance of Grovers search with the GPU implementation. 
