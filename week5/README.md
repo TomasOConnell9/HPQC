@@ -34,7 +34,7 @@ This will prompt you to input you frank/cheetah password, and once entered will 
 ![Alt Text](sample_animation.gif)
 
 
-***Removing the hardcoded aspects of the script:***
+**Removing the hardcoded aspects of the script:**
 
 Next I a new script `my_string_wave.c` was created. The idea of this script was to take the logic and function of the previous `string_wave_serial.c` and update it so that it no longer had hardcoded paramaters but instead they could be selected by the user, like for the "points" paramater.
 The development of this was simple enough, rather than reading in a single argument I updated it so that the program expected 4 inputs, points, cycles, sample and output_file name. Now, after compiling the code the same was as before, we can now run:
@@ -45,4 +45,30 @@ This makes it much easier to control what sort of wave data is produced.
 Similaraly, `animate_line_file.py` was updated with a function that requests the user for an input when ran. The input prompts the user the input the name of gif they wish to create. This again aids in creating different gifs for comparing.
 
 
-   
+
+## Part 2: MPI
+
+
+
+
+## Part 3: Improve Physics model
+
+The original `string_wave.c` simulation used a simplified model of a string oscillating, it assigned each point the value of the point before it. In this section we want to implement something a little bit more complicated. The new script `spring_string_wave.c` now has the string behave according to Hookes law. This results in each point needing its own unique calculation instead of inheriting a previous value. 
+
+**Changes:**
+The main changes come in the `update_positions` function. The function now takes in velocity values and acceleration as these are now needed to calculate the movement of each point. Within the function itself the driver remains the same but now every point on the string has a force from its left and right which change its behaviour. The implementation of the force on each points allows for a more natural and physical model instead of simple propagation seen in the original.
+
+The script retains the removed hardcoded paramters points, cycles, samples and filename from the script so users can run their desired setups. However for simplicity the spring constant `k` and mass of the points `m` are hardcoded into the script so there aren't an overwhelming amoung of paramters for users to input to run the script. The spring constant is set to 0.5 and the mass is set to 1.
+
+**Compiling:**
+To compile and run the script yourself:
+	- `gcc spring_string_wave.c -o bin/spring_wave_spring -lm`
+Once compiled to run the simulation for a set of paramters users run:
+	- `./bin/string_wave_spring [points] [cycles] [samples] [output_path]`
+
+Users can then run the compiled script for any set of paramterrs they like.
+
+**Result:**
+To test the result of the script I ran the following test, `./bin/string_wave_spring 50 5 100 spring_wave_50_5_100`
+
+
