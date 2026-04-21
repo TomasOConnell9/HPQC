@@ -71,4 +71,4 @@ Users can then run the compiled script for any set of paramterrs they like.
 **Result:**
 To test the result of the script I ran the following test, `./bin/string_wave_spring 50 5 100 spring_wave_50_5_100`
 
-
+![Alt Text](spring_wave_50_5_100.gif)
